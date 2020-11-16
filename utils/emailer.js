@@ -64,21 +64,21 @@ const sendEmail = (request, type) => {
     let resetPassword = {
         from: '"WeAuth" <m.eggertsen@hotmail.com>', 
         to: request.email,
-        subject: "Reset Passord",
-        text:
-            `Hi, somebody (Hopefully you) have requested to reset their password on WeAuth. 
-            You can reset your password by clicking the following: http://localhost:8080/reset/${request.token}"
-            You have 10 minutes before it become invalid and have to receive anoter email. 
-            If you didn't request this, just ignore it.`,
+        subject: "Reset Password",
+        html:
+            `<p>Hi, somebody (Hopefully you) have requested to reset their password on WeAuth. 
+            You can reset your password by clicking the following: http://localhost:8080/reset?id=${request.token}</p>
+            <p>You have 10 minutes before it become invalid and have to request another email. 
+            If you didn't request this, just ignore it.</p>`,
     };
 
     let confirmEmail = {
         from: '"WeAuth" <m.eggertsen@hotmail.com>',
         to: request.email,
         subject: "Email verification", 
-        text:
-            `Hi! Thank you for creating an account, before we can let you lose on our website, 
-            you need to click the following link: http://localhost:8080/confirm/${request.token}`,
+        html:
+            `<p>Hi! Thank you for creating an account, before we can let you lose on our website, 
+            you need to click the following link: http://localhost:8080/confirm?id=${request.token}</p>s`,
     };
 
     return new Promise((resolve, reject) => {

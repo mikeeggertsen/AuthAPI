@@ -35,7 +35,7 @@ router.post("/signin", (req, res) => {
                             return res.status(200).json({
                                 token,
                                 user: userDTO,
-                                msg: "You are now logged in!"
+                                msg: `You are now logged in! Welcome back ${user.firstname} ${user.lastname}`
                             });
                         }
                     );
