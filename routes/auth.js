@@ -4,12 +4,28 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("../utils/bcrypt")
 const auth = require("../middleware/auth")
 
+// @route GET /user
+// @description Get user data
+// @access Private
+router.get("/user", auth, (req, res) => {
+    const _id = req.user._id;
+    User.findOne({ _id })
+        .select('-password')
+        .then((user) => {
+            return res.status(200).json({ user });
+        })
+        .catch((error) => {
+            console.log("GET USER ERROR: " + error);
+            return res.status(500).json({ msg: "Something went wrong... Try again later or contact us" });
+        })
+})
+
 // @route POST /sigin
 // @description Sign in user
 // @access Public
 router.post("/signin", (req, res) => {
     const { email, password } = req.body
-    
+
     if (!email || !password) {
         return res.status(400).json({ msg: "Login failed, invalid email or password" })
     }
@@ -26,7 +42,7 @@ router.post("/signin", (req, res) => {
                         lastname: user.lastname,
                         email: user.email
                     }
-            
+
                     jwt.sign(
                         { _id: user._id },
                         process.env.JWT_KEY,
@@ -43,27 +59,11 @@ router.post("/signin", (req, res) => {
                 .catch(() => {
                     return res.status(400).json({ msg: "Login failed, invalid email or password" });
                 });
-        })  
+        })
         .catch((error) => {
             console.log("Login: " + error);
             return res.status(500).json({ msg: "Something went wrong... Try again later or contact us" });
         })
-})
-
-// @route POST /auth
-// @description Get user data
-// @access Private
-router.get("/user", auth, (req, res) => {
-    const _id = req.user._id;
-    User.findOne({ _id })
-    .select('-password')
-    .then((user) => {
-        return res.status(200).json({ user });
-    })
-    .catch((error) => {
-        console.log("GET USER ERROR: " + error);
-        return res.status(500).json({ msg: "Something went wrong... Try again later or contact us" });
-    })
 })
 
 module.exports = router;
