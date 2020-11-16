@@ -22,6 +22,6 @@ const UserSchema = new Schema({
         type: Boolean,
         default: false
     }
-}, { collection : 'users' });
+}, { collection: "users" });
 
-module.exports = User = mongoose.model('user', UserSchema);
+module.exports = User = mongoose.model("user", UserSchema);
