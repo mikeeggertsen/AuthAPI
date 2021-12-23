@@ -4,10 +4,10 @@ This API was developed in conjunction with a mandatory assignment in NodeJS.
 ### Specifications
 - Uses MongoDB to store user information.
 - Uses JWT as a user token to access private routes.
-- Encryption of passwords is done with Bcrypt.
+- Hashing of passwords is done with Bcrypt.
 - Send confirmation email after registration.
 - Implements reset password functionallty.
-- Both confirmation and reset is send with Nodemailer.
+- Both confirmation and reset mail is send with Nodemailer.
 
 ### Documentation
 ##### Auth routes
